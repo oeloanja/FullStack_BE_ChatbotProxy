@@ -15,3 +15,7 @@ eureka:
 chatbot:
   server:
     url: http://chatbot-service:8000
+
+chatbotnon:
+  server:
+    url: http://chatbot-service-non:8070

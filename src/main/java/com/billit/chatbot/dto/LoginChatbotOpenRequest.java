@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class LoginChatRequest {
-    @JsonProperty("input")
-    private String input;
+@NoArgsConstructor
+public class LoginChatbotOpenRequest {
+    @JsonProperty("uuid")
+    private String uuid;
 }

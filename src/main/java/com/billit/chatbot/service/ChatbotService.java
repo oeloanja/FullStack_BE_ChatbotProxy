@@ -1,17 +1,22 @@
 package com.billit.chatbot.service;
 
 import com.billit.chatbot.dto.LoginChatRequest;
+import com.billit.chatbot.dto.LoginChatbotOpenRequest;
 import com.billit.chatbot.dto.NonLoginChatRequest;
 import com.billit.chatbot.dto.ChatResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChatbotService {
@@ -20,30 +25,47 @@ public class ChatbotService {
     @Value("${chatbot.server.url}")
     private String chatbotUrl;
 
-    public ChatResponse sendLoginChatRequest(LoginChatRequest request) {
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("input", request.getInput());
-        formData.add("uuid", request.getUuid());
+    @Value("${chatbotnon.server.url}")
+    private String chatbotNonUrl;
 
+    public void openChat(String uuid) {
+        if (uuid == null || uuid.trim().isEmpty()) {
+            throw new IllegalArgumentException("UUID cannot be null or empty");
+        }
+        LoginChatbotOpenRequest request = new LoginChatbotOpenRequest(uuid);
+        log.info("Sending request to chatbot: {}", request);
+
+        webClientBuilder.build()
+                .post()
+                .uri(chatbotUrl + "/chat/open")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
+
+    public ChatResponse sendLoginChatRequest(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            throw new IllegalArgumentException("input cannot be null or empty");
+        }
+        LoginChatRequest request = new LoginChatRequest(input);
         return webClientBuilder.build()
                 .post()
                 .uri(chatbotUrl + "/chat/login")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData(formData))
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(request)
                 .retrieve()
                 .bodyToMono(ChatResponse.class)
                 .block();
     }
 
     public ChatResponse sendNonLoginChatRequest(NonLoginChatRequest request) {
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("input", request.getInput());
-
         return webClientBuilder.build()
                 .post()
-                .uri(chatbotUrl + "/chat/non-login")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData(formData))
+                .uri(chatbotNonUrl + "/chat/non")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(request)
                 .retrieve()
                 .bodyToMono(ChatResponse.class)
                 .block();
