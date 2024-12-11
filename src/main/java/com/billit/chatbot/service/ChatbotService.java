@@ -1,19 +1,14 @@
 package com.billit.chatbot.service;
 
-import com.billit.chatbot.dto.LoginChatRequest;
-import com.billit.chatbot.dto.LoginChatbotOpenRequest;
-import com.billit.chatbot.dto.NonLoginChatRequest;
-import com.billit.chatbot.dto.ChatResponse;
+import com.billit.chatbot.dto.request.LoginChatRequest;
+import com.billit.chatbot.dto.request.LoginChatbotOpenRequest;
+import com.billit.chatbot.dto.request.NonLoginChatRequest;
+import com.billit.chatbot.dto.response.ChatResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Slf4j

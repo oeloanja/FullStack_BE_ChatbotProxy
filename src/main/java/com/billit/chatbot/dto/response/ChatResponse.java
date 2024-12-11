@@ -1,4 +1,4 @@
-package com.billit.chatbot.dto;
+package com.billit.chatbot.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

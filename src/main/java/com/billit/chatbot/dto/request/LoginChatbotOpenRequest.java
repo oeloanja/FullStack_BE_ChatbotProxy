@@ -1,4 +1,4 @@
-package com.billit.chatbot.dto;
+package com.billit.chatbot.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

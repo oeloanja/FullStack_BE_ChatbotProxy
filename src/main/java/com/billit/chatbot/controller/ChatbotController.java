@@ -1,9 +1,9 @@
 package com.billit.chatbot.controller;
 
-import com.billit.chatbot.dto.LoginChatRequest;
-import com.billit.chatbot.dto.LoginChatbotOpenRequest;
-import com.billit.chatbot.dto.NonLoginChatRequest;
-import com.billit.chatbot.dto.ChatResponse;
+import com.billit.chatbot.dto.request.LoginChatRequest;
+import com.billit.chatbot.dto.request.LoginChatbotOpenRequest;
+import com.billit.chatbot.dto.request.NonLoginChatRequest;
+import com.billit.chatbot.dto.response.ChatResponse;
 import com.billit.chatbot.service.ChatbotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
