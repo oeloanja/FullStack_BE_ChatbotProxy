@@ -11,4 +11,7 @@ import lombok.NoArgsConstructor;
 public class LoginChatbotOpenRequest {
     @JsonProperty("uuid")
     private String uuid;
+
+    @JsonProperty("user_pn")
+    private String user_pn;
 }

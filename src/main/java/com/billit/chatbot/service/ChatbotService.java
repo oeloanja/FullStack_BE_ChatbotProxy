@@ -23,12 +23,12 @@ public class ChatbotService {
     @Value("${chatbotnon.server.url}")
     private String chatbotNonUrl;
 
-    public void openChat(String uuid) {
+    public void openChat(String uuid, String user_pn) {
         if (uuid == null || uuid.trim().isEmpty()) {
             throw new IllegalArgumentException("UUID cannot be null or empty");
         }
-        LoginChatbotOpenRequest request = new LoginChatbotOpenRequest(uuid);
-        log.info("Sending request to chatbot: {}", request);
+
+        LoginChatbotOpenRequest request = new LoginChatbotOpenRequest(uuid, user_pn);
 
         webClientBuilder.build()
                 .post()

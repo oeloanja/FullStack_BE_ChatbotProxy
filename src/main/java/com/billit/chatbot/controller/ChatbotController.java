@@ -29,6 +29,6 @@ public class ChatbotController {
 
     @PostMapping("/open")
     public void openChatbot(@RequestBody LoginChatbotOpenRequest request) {
-        chatbotService.openChat(request.getUuid());
+        chatbotService.openChat(request.getUuid(), request.getUser_pn());
     }
 }
